@@ -3,14 +3,48 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="robots" content="noindex,nofollow"> <!-- 検索避けたい間だけ入れておく -->
-  <title>Hello World</title>
+  <meta name="robots" content="noindex,nofollow">
+  <title>Daily Color</title>
   <style>
-    html,body{height:100%} body{margin:0;display:grid;place-items:center;font-family:system-ui,-apple-system,Segoe UI,Roboto}
-    .box{padding:6rem 3rem;border:1px solid #e5e7eb;border-radius:20px}
+    :root{--gap:16px}
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:#fff;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto;color:#111}
+    header{padding:24px 20px;display:flex;justify-content:space-between;align-items:center}
+    h1{font-size:18px;margin:0;letter-spacing:.02em}
+    main{padding:0 20px 40px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:var(--gap)}
+    .card{border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;text-decoration:none;color:inherit;transition:transform .08s ease}
+    .card:hover{transform:translateY(-2px)}
+    .swatch{width:100%;aspect-ratio:1/1}
+    .meta{padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+    .hex{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14px}
+    .date{font-size:12px;color:#6b7280}
+    footer{padding:24px 20px;color:#9ca3af;font-size:12px}
   </style>
 </head>
 <body>
-  <div class="box">Hello World</div>
+  <header>
+    <h1>Daily Color</h1>
+    <nav></nav>
+  </header>
+
+  <main>
+    <div class="grid">
+      <!-- 1枚目のダミー -->
+      <a class="card" href="color-2025-08-20.html">
+        <div class="swatch" style="background:#3A7BD5"></div>
+        <div class="meta">
+          <div class="hex">#3A7BD5</div>
+          <div class="date">2025-08-20</div>
+        </div>
+      </a>
+      <!-- 以降は同じブロックを増やしていく -->
+    </div>
+  </main>
+
+  <footer>
+    Minimal gallery on pure HTML  画像は後で差し替え
+  </footer>
 </body>
 </html>
