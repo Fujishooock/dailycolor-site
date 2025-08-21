@@ -88,43 +88,50 @@ def render_detail(row):
     rgb = row["rgb"]
     cap = row["caption"]
     img = row["image"]
-    html = f"""<!doctype html>
+
+    # ※ ここは f-string を使わず、% で埋め込みにします
+    html = """<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
-  <title>Daily Color {date} · {hexv}</title>
-  <style>{DETAIL_CSS}</style>
+  <title>Daily Color %s · %s</title>
+  <style>%s</style>
 </head>
 <body>
   <header><a href="index.html">← Back</a></header>
   <main>
-    <img class="swatch" src="{img}" alt="{hexv}">
+    <img class="swatch" src="%s" alt="%s">
     <div class="meta">
       <div class="box">
         <div class="label">HEX</div>
-        <div class="value" id="hex">{hexv}</div>
+        <div class="value" id="hex">%s</div>
       </div>
       <div class="box">
         <div class="label">RGB</div>
-        <div class="value" id="rgb">{rgb}</div>
+        <div class="value" id="rgb">%s</div>
       </div>
     </div>
     <div class="caption">
       <div class="label">Caption</div>
-      <p>{cap}</p>
+      <p>%s</p>
       <button id="copy">Copy HEX</button>
     </div>
   </main>
   <script>
-    document.getElementById('copy').addEventListener('click', async ()=>{
-      const hex = document.getElementById('hex').textContent.trim()
-      try{ await navigator.clipboard.writeText(hex) }catch(e){}
-    })
+    document.getElementById('copy').addEventListener('click', async () => {
+      const hex = document.getElementById('hex').textContent.trim();
+      try {
+        await navigator.clipboard.writeText(hex);
+      } catch (e) {
+        console.error(e);
+      }
+    });
   </script>
 </body>
-</html>"""
+</html>""" % (date, hexv, DETAIL_CSS, img, hexv, hexv, rgb, cap)
+
     (OUT / f"color-{date}.html").write_text(html, encoding="utf-8")
 
 def main():
