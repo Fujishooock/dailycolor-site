@@ -1,0 +1,47 @@
+name: Daily Color
+
+on:
+  schedule:
+    # 毎日 00:00 UTC = 日本時間 09:00
+    - cron: "0 0 * * *"
+  workflow_dispatch: {}  # 手動実行ボタン
+
+permissions:
+  contents: write  # GITHUB_TOKENでpushするのに必要
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      MPLBACKEND: Agg  # matplotlibをノンGUIで動かす
+      TZ: Asia/Tokyo   # ログ表示をJSTに
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy matplotlib
+
+      - name: Generate today
+        run: |
+          python daily_color.py
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m "daily update $(date +'%Y-%m-%d %H:%M:%S %Z')"
+            git push
+          else
+            echo "no changes to commit"
+          fi
