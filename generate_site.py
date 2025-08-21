@@ -122,7 +122,7 @@ def render_detail(row):
   <script>
     document.getElementById('copy').addEventListener('click', async ()=>{
       const hex = document.getElementById('hex').textContent.trim()
-      try{{ await navigator.clipboard.writeText(hex) }}catch(e){{}}
+      try{{{{ await navigator.clipboard.writeText(hex) }}}}catch(e){{{{}}}}
     })
   </script>
 </body>
