@@ -1,4 +1,3 @@
-# generate_site.py 安全版（丸ごと置き換え）
 import csv, datetime as dt, pathlib
 
 ROOT = pathlib.Path(__file__).parent
