@@ -1,11 +1,10 @@
+# generate_site.py 安全版（丸ごと置き換え）
 import csv, datetime as dt, pathlib
 
 ROOT = pathlib.Path(__file__).parent
 DATA = ROOT / "data.csv"
 OUT = ROOT
-IMAGES = ROOT / "images"
 
-# 共通のミニマルCSS
 BASE_CSS = """
   *{box-sizing:border-box}
   body{margin:0;background:#fff;color:#111;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto}
@@ -136,6 +135,4 @@ def main():
         render_detail(row)
 
 if __name__ == "__main__":
-    # 画像フォルダの存在チェックだけ軽く
-    IMAGES.mkdir(exist_ok=True)
     main()
