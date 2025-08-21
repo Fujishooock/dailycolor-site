@@ -2,41 +2,56 @@ name: Daily Color
 
 on:
   schedule:
-    # 毎日 00:00 UTC = 日本時間 09:00
+    # 00:00 UTC = 09:00 JST
     - cron: "0 0 * * *"
-  workflow_dispatch: {}  # 手動実行ボタン
+  workflow_dispatch: {}
 
 permissions:
-  contents: write  # GITHUB_TOKENでpushするのに必要
+  contents: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      MPLBACKEND: Agg  # matplotlibをノンGUIで動かす
-      TZ: Asia/Tokyo   # ログ表示をJSTに
+      MPLBACKEND: Agg     # GUIなしでmatplotlibを動かす
+      TZ: Asia/Tokyo
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # push時に履歴が必要になるケースの保険
+
+      - name: Show repo tree
+        run: |
+          pwd
+          ls -la
+          echo "----"
+          ls -la images || true
+          echo "----"
+          test -f daily_color.py && echo "daily_color.py found" || (echo "daily_color.py missing" && exit 1)
+          test -f generate_site.py && echo "generate_site.py found" || (echo "generate_site.py missing" && exit 1)
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-        
 
       - name: Install dependencies
         run: |
+          python -V
           python -m pip install --upgrade pip
           pip install numpy matplotlib
 
-      - name: Generate today
+      - name: Run daily_color.py
         run: |
+          set -eux
           python daily_color.py
+          echo "---- data.csv tail ----"
+          tail -n 5 data.csv || true
 
       - name: Commit and push if changed
         run: |
-          git config user.name "github-actions[bot]"
+          git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
           if ! git diff --cached --quiet; then
