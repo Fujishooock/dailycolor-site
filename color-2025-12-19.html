@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Daily Color 2025-12-19 · #275672</title>
+  <style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#fff;color:#111;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto}
+  a{color:inherit;text-decoration:none}
+  header{padding:24px 20px;display:flex;justify-content:space-between;align-items:center;max-width:1200px;margin:0 auto}
+  h1{font-size:18px;margin:0;letter-spacing:.02em}
+  main{max-width:1200px;margin:0 auto;padding:0 20px 40px}
+  footer{padding:24px 20px;color:#9ca3af;font-size:12px;max-width:1200px;margin:0 auto}
+
+  header,main{max-width:760px}
+  .swatch{display:block;width:100%;height:auto;border:1px solid #e5e7eb;border-radius:20px}
+  .meta{margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .box{border:1px solid #e5e7eb;border-radius:12px;padding:12px}
+  .label{font-size:12px;color:#6b7280}
+  .value{font-family:ui-monospace,Menlo,Consolas,monospace;margin-top:6px}
+  .caption{margin-top:20px}
+  button{padding:8px 10px;border-radius:10px;border:1px solid #e5e7eb;background:#fff;cursor:pointer}
+</style>
+</head>
+<body>
+  <header><a href="index.html">← Back</a></header>
+  <main>
+    <img class="swatch" src="images/2025-12-19.png" alt="#275672">
+    <div class="meta">
+      <div class="box">
+        <div class="label">HEX</div>
+        <div class="value" id="hex">#275672</div>
+      </div>
+      <div class="box">
+        <div class="label">RGB</div>
+        <div class="value" id="rgb">39 86 114</div>
+      </div>
+    </div>
+    <div class="caption">
+      <div class="label">Caption</div>
+      <p>Auto generated color</p>
+      <button id="copy">Copy HEX</button>
+    </div>
+  </main>
+  <script>
+    document.getElementById('copy').addEventListener('click', async () => {
+      const hex = document.getElementById('hex').textContent.trim();
+      try {
+        await navigator.clipboard.writeText(hex);
+      } catch (e) {
+        console.error(e);
+      }
+    });
+  </script>
+</body>
+</html>
